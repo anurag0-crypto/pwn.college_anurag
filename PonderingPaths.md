@@ -7,7 +7,7 @@ Flag:pwn.college{MJoHj2bcHojK8KTBbGSAf5hAA88.QX4cTO0wCO5kjNzEzW}
 
 I launched a terminal and invoked the pwn command from its absolute path typing /pwn to get the flag.
 
-### What I learned
+### What I learned 
 I familiarised myself with the command line.
 
 ### References
