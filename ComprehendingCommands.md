@@ -2,7 +2,7 @@
 # Comprehending Commands
 ### Task 1
 This challenge asks to read the flag file using cat and hence obtain the flag.
-### My Solve
+### My Solve 
 Flag:pwn.college{A9SPP_Rlaa-LSrjJWtV3tWbxShD.QXxcTN0wCO5kjNzEzW}
 
 I use the cat command to display the contents of the flag file and hence obtain the flag.
