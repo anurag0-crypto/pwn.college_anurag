@@ -4,10 +4,14 @@
 This challenge asks to read the flag file using cat and hence obtain the flag.
 ### My Solve 
 Flag:pwn.college{A9SPP_Rlaa-LSrjJWtV3tWbxShD.QXxcTN0wCO5kjNzEzW}
-
-I use the cat command to display the contents of the flag file and hence obtain the flag.
+```
+hacker@commands~cat-not-the-pet-but-the-command:~$ cat flag
+pwn.college{A9SPP_Rlaa-LSrjJWtV3tWbxShD.QXxcTN0wCO5kjNzEzW}
+hacker@commands~cat-not-the-pet-but-the-command:~$
+```
+I used the cat command to display the contents of the flag file and hence obtain the flag.
 ### What I learned
-I familiarised myself with command line.
+We can use cat command to read a file by specifying the file name as argument to the cat command.
 ### References
 Instructions in pwn.college.
 
@@ -16,10 +20,14 @@ Instructions in pwn.college.
 This challenge asks to read the flag from its absolute path.
 ### My Solve
 Flag:pwn.college{wX17exKyxwFBmtiFJLNsmgxhFkS.QX5ETO0wCO5kjNzEzW}
-
+```
+hacker@commands~catting-absolute-paths:~$ cat /flag
+pwn.college{wX17exKyxwFBmtiFJLNsmgxhFkS.QX5ETO0wCO5kjNzEzW}
+hacker@commands~catting-absolute-paths:~$
+```
 I used the cat command to read flag from its absolute directory i.e  cat /flag to get the flag.
 ### What I learned
-I familiarised myself with command line.
+We can also read from a absolute path using cat command by specifying the path to the argument of cat command.
 ### References
 Instructions in pwn.college.
 
@@ -28,10 +36,19 @@ Instructions in pwn.college.
 This challenge asks to retrieve the flag from a different directory than home without using the cd command.
 ### My Solve
 Flag:pwn.college{c6ajjHzXxgMc8nvc9OMtvgdMBFA.QXwITO0wCO5kjNzEzW}
-
-Directly invoking the cat command to the path given to the particular directory helped me fetch the flag.
+```
+You cannot use the 'cd' command in this level, and must retrieve the flag by
+absolute path. Plus, I hid the flag in a different directory! You can find it
+in the file /usr/lib/aspell/flag. Go cat it out **without** cding into that
+directory!
+hacker@commands~more-catting-practice:~$ cat /usr/lib/aspell/flag
+pwn.college{c6ajjHzXxgMc8nvc9OMtvgdMBFA.QXwITO0wCO5kjNzEzW}
+hacker@commands~more-catting-practice:~$
+```
+Directly invoking the cat command to the path given to the patricular directory named /usr/lib/aspell/flag
+helped me fetch the flag.
 ### What I learned
-I familiarised myself with command line.
+We can directly invoke the command on a path without needing to change the working directory using cd.
 ### References
 Instructions in pwn.college.
 
@@ -40,10 +57,16 @@ Instructions in pwn.college.
 This challenge asks to search for the flag in a given file containing lines of text using the grep command.
 ### My Solve
 Flag:pwn.college{QHeiQhlB-n2PClDWbQqzi_viMYM.QX3EDO0wCO5kjNzEzW}
-
-I used the grep command with the argument of "pwn.college" to search for the flag among the file.
+```
+hacker@commands~grepping-for-a-needle-in-a-haystack:~$ grep pwn.college /challenge/data.txt
+pwn.college{QHeiQhlB-n2PClDWbQqzi_viMYM.QX3EDO0wCO5kjNzEzW}
+hacker@commands~grepping-for-a-needle-in-a-haystack:~$
+```
+I used the grep command with the argument of "pwn.college" to search for the flag within the file as the flag
+always starts with "pwn.college".
 ### What I learned
-Learnt the usage of the grep command.
+Learnt the usage of the grep command and how it can be used to search for a string within lines of text
+of a file.
 ### References
 Instructions in pwn.college.
 
@@ -52,11 +75,17 @@ Instructions in pwn.college.
 This challenge provides two flags: one containing 100 fake flags and one containing 100 fake flags with one real one. I am asked to find the flag using the diff command.
 ### My Solve
 Flag: pwn.college{4cpgubrgZHqUAVVgQoC4_mbqE0n.01MwMDOxwCO5kjNzEzW}
-
-I used the diff command with the two files as arguments. As 100 fake flags of the two files are same, the diff command prints the line containing the real flag and hence the
-challenge is completed.
+```
+hacker@commands~comparing-files:~$ diff /challenge/decoys_only.txt /challenge/decoys_and_real.txt
+32a33
+> pwn.college{4cpgubrgZHqUAVVgQoC4_mbqE0n.01MwMDOxwCO5kjNzEzW}
+hacker@commands~comparing-files:~$
+```
+I used the diff command with the two files as arguments. As 100 fake flags of the two files are same, the diff command prints the line containing the real flag and hence the challenge is completed.
+The 32a33 signifies that there is an additional line after 32 lines in second file which
+contains the flag when compared to 32 lines of decoy in first file.
 ### What I learned
-Usage of the diff command.
+Usage of the diff command and how it can be used to compare the content of two files.
 ### References
 Instructions in pwn.college.
 
@@ -65,10 +94,19 @@ Instructions in pwn.college.
 This challenge asks to list files present in the /challenge directory to find the flag using the ls command.
 ### My Solve
 Flag: pwn.college{wbZhpPEV0fb1ZwrBaxI6-FW9khP.QX4IDO0wCO5kjNzEzW}
-
-I used the ls command on /challenge directory which I passed as an argument to the command. I ran a file called 20810-renamed-run-3068 to get the flag.
+```
+hacker@commands~listing-files:~$ ls /challenge
+14842-renamed-run-31686  DESCRIPTION.md
+hacker@commands~listing-files:~$ /challenge/run 14842-renamed-run-31686
+bash: /challenge/run: No such file or directory
+hacker@commands~listing-files:~$ /challenge/14842-renamed-run-31686
+Yahaha, you found me! Here is your flag:
+pwn.college{wbZhpPEV0fb1ZwrBaxI6-FW9khP.QX4IDO0wCO5kjNzEzW}
+hacker@commands~listing-files:~$
+```
+I used the ls command on /challenge directory which I passed as an argument to the command, which listed out all non hidden files present in /challenge. I ran a file called 14842-renamed-run-31686 to get the flag.
 ### What I learned
-Usage of the ls command.
+Usage of the ls command and how it can be used to list files in all the directories provided to it as arguments.
 ### References
 Instructions in pwn.college.
 
