@@ -3,12 +3,25 @@
 This challenge asks to change the directory to /challenge with an argument of at most 4 characters provided to the cd command.
 ### My Solve
 Flag:pwn.college{AvUcQz3ewXqz3HYjXa6sUwC7nW9.QXxIDO0wCO5kjNzEzW}
-
+```
+This challenge resets your working directory to /home/hacker unless you change
+directory properly...
+This challenge resets your working directory to /home/hacker unless you change
+directory properly...
+hacker@globbing~matching-with-:~$ cd /*l*
+bash: cd: too many arguments
+hacker@globbing~matching-with-:~$ cd /ch*
+hacker@globbing~matching-with-:/challenge$ /challenge/run
+You ran me with the working directory of /challenge! Here is your flag:
+pwn.college{AvUcQz3ewXqz3HYjXa6sUwC7nW9.QXxIDO0wCO5kjNzEzW}
+hacker@globbing~matching-with-:/challenge$
+```
 I gave an argument initially of /*l* which did not change the directory as there exists many directories with a letter l between their respective directory names.
-Then, I gave a more direct and specific argument of /ch* which changed the directory to a directory starting with ch in its name. Hence, i successfully changed
-the directory to /challenge with using a cd command of at most 4 characters. Finally, I typed /challenge/run to obtain the flag.
+Then, I gave a more direct and specific argument of /ch* which changed the directory to a directory starting with ch in its name. Hence, I successfully changed the directory to /challenge with using a cd command, of at most 4 characters. 
+Finally, I typed /challenge/run to obtain the flag.
 ### What I learned
-Significance of * being passed in the argument with expands to the corresponding directory name.
+When the shell encounters a * character in any argument, the shell will treat it as a "wildcard" and try to replace that argument with any files that match the pattern.
+Significance of * being passed in the argument expands to the corresponding matching directory name.
 ### References
 Instructions in pwn.college.
 
@@ -17,10 +30,20 @@ Instructions in pwn.college.
 This challenge clearly asks to change the directory to /challenge using ? character in replacement of c and l.
 ### My Solve
 Flag:pwn.college{csOhAzhYB_oYsfBmGQdgd20uFW5.QXyIDO0wCO5kjNzEzW}
-
-I ran cd /?ha??enge and ran /challenge/run to get the flag.
+```
+This challenge resets your working directory to /home/hacker unless you change
+directory properly...
+This challenge resets your working directory to /home/hacker unless you change
+directory properly...
+hacker@globbing~matching-with-:~$ cd /?ha??enge
+hacker@globbing~matching-with-:/challenge$ /challenge/run
+You ran me with the working directory of /challenge! Here is your flag:
+pwn.college{csOhAzhYB_oYsfBmGQdgd20uFW5.QXyIDO0wCO5kjNzEzW}
+hacker@globbing~matching-with-:/challenge$
+```
+I ran cd /?ha??enge which changed the working directory to /challenge and ran /challenge/run to get the flag.
 ### What I learned
-Significance of ? character and that it acts like a single character wild card to match the respective directory.
+When the shell encounters a ? character in any argument, the shell will treat it as a single-character wildcard. This works like *, but only matches one character.
 ### References
 Instructions in pwn.college.
 
@@ -29,10 +52,16 @@ Instructions in pwn.college.
 This challenge asks to change the directory to /challenge/files and run /challenge/run with an argument that bracket globs file_a,file_b,file_s,file_h.
 ### My Solve
 Flag:pwn.college{IeczvcQfeQSbpwFRbvpqi5jlIR-.QXzIDO0wCO5kjNzEzW}
-
-I changed the directory to /challenge/files and ran /challenge/files file_[abhs] to match the 4 above files mentioned to get the flag.
+```
+hacker@globbing~matching-with-:~$ cd /challenge/files
+hacker@globbing~matching-with-:/challenge/files$ /challenge/run file_[abhs]
+You got it! Here is your flag!
+pwn.college{IeczvcQfeQSbpwFRbvpqi5jlIR-.QXzIDO0wCO5kjNzEzW}
+hacker@globbing~matching-with-:/challenge/files$
+```
+I changed the directory to /challenge/files as mentioned in the challenge and ran /challenge/files file_[abhs] to match the 4 above files mentioned to get the flag.
 ### What I learned
-Significance of [] character.
+The square brackets are, essentially, a limited form of ?, in that instead of matching any character, [] is a wildcard for some subset of potential characters, specified within the brackets. For example, [pwn] will match the character p, w, or n.
 ### References
 Instructions in pwn.college.
 
@@ -41,8 +70,17 @@ Instructions in pwn.college.
 This challenge asks to run /challenge/run from the home directory using an argument that globs into the absolute path of the 4 respective files as mentioned.
 ### My Solve
 Flag:pwn.college{gi9GA8__Rf2REMJp7_rVPr6rfBf.QX0IDO0wCO5kjNzEzW}
-
-I ran the /challenge/run /challenge/files/file_[abhs] command from the home directory to obtain the flag.
+```
+hacker@globbing~matching-paths-with-:~$ /challenge/run /challenge/files/file_[abhs]
+You got it! Here is your flag!
+pwn.college{gi9GA8__Rf2REMJp7_rVPr6rfBf.QX0IDO0wCO5kjNzEzW}
+hacker@globbing~matching-paths-with-:~$
+```
+I ran the /challenge/run /challenge/files/file_[abhs] command from the home directory,where the argument globs into absolute path of the 4 respective files as mentioned to obtain the flag.
+### What I learned
+Globbing happens on a path basis, so we can expand entire paths with our globbed arguments.
+### References
+Instructions in pwn.college website.
 
 
 ### Task 5
@@ -50,8 +88,14 @@ This challenge asks to enter a short (3 characters or less) globbed word with tw
 /challenge/run after changing the directory to /challenge/files.
 ### My Solve 
 Flag:pwn.college{Mf9jWiRla_T-l6DVPcpNx2RYGIO.0lM3kjNxwCO5kjNzEzW}
-
-I used cd to change directory to /challenge/files and ran /challenge/run *p* to get the flag.
+```
+hacker@globbing~multiple-globs:~$ cd /challenge/files
+hacker@globbing~multiple-globs:/challenge/files$ /challenge/run *p*
+You got it! Here is your flag!
+pwn.college{Mf9jWiRla_T-l6DVPcpNx2RYGIO.0lM3kjNxwCO5kjNzEzW}
+hacker@globbing~multiple-globs:/challenge/files$
+```
+In this challenge,as it requires (3 characters or less) globbed word with two * globs in it that covers every word that contains the letter p, we can use *p*. I used cd to change directory to /challenge/files and ran /challenge/run *p* to get the flag.
 ### What I learned
 Problem Solving
 ### References
