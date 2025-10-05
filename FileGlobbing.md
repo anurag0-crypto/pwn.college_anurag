@@ -106,7 +106,19 @@ Instructions in pwn.college.
 To pass an argument that will glob files named challenging,pwning,educational with an argument of at most 6 characters to /challenge/run.
 ### My Solve
 Flag:pwn.college{cfboD_OR0veWN-0Vi_-UzbCLVFM.QX1IDO0wCO5kjNzEzW}
-
+```
+hacker@globbing~mixing-globs:~$ cd /challenge/files
+hacker@globbing~mixing-globs:/challenge/files$ /challenge/run *n[gp]
+Your expansion did not expand to the requested files (challenging, educational,
+pwning). Instead, it expanded to:
+amazing challenging laughing pwning thrilling uplifting
+hacker@globbing~mixing-globs:/challenge/files$ /challenge/run *[ing]*
+Error: your argument is too long! It must be 6 characters or less.
+hacker@globbing~mixing-globs:/challenge/files$ /challenge/run [cep]*
+You got it! Here is your flag!
+pwn.college{cfboD_OR0veWN-0Vi_-UzbCLVFM.QX1IDO0wCO5kjNzEzW}
+hacker@globbing~mixing-globs:/challenge/files$
+```
 I tried a subset of similar characters present in challenging,pwning,educational repetitively to get the respective command to glob only
 the three files named challenging,pwning,educational specifically. Until, I realized that only these files start with c,p and e respectively in
 the /challenge/files directory. I ran /challenge/run [cep]* to get the flag.
@@ -120,9 +132,17 @@ Instructions in pwn.college.
 The challenge asks to filter out files that do not start with p,w,n.
 ### My Solve
 Flag:pwn.college{0DsIRDvJ2uUp9k7rXizY8rzgon9.QX2IDO0wCO5kjNzEzW}
-
+```
+hacker@globbing~exclusionary-globbing:~$ cd /challenge/files
+hacker@globbing~exclusionary-globbing:/challenge/files$ /challenge/run [^pwn]*
+You got it! Here is your flag!
+pwn.college{0DsIRDvJ2uUp9k7rXizY8rzgon9.QX2IDO0wCO5kjNzEzW}
+hacker@globbing~exclusionary-globbing:/challenge/files$
+```
 Similar to the previous task, I ran /challenge/run [^pwn]* to get the flag. Here, ^ lists the flags which do not start with p,w,n.
 ### What I learned
+Sometimes, we want to filter out files in a glob. [] helps us do this. If the first character in the brackets is a !
+or (in newer versions of bash) a ^, the glob inverts, and that bracket instance matches characters that aren't listed.
 ^ specifies the opposite of the command,i.e works as an inversion of the command.
 ### References
 Instructions in pwn.college.
@@ -133,9 +153,32 @@ This challenge asks to display the flag which has been copied to the /challenge/
 the name of the file.
 ### My Solve
 Flag:pwn.college{sqxMlDW2hGedsb2hMArrspjHgom.0FN0EzNxwCO5kjNzEzW}
+```
+hacker@globbing~tab-completion:~$ cat /challenge/pwncollege​
+.bash_history       COLLEGE             college             intercepted_output  pwn
+.config/            PWN                 errors.log          myflag              the-flag
+.lesshst            a                   instructions        not-the-flag
+hacker@globbing~tab-completion:~$ cat /challenge/pwncollege​ the-flag
+pwn.college{sqxMlDW2hGedsb2hMArrspjHgom.0FN0EzNxwCO5kjNzEzW}
+ |
+\|/ This is the first half:
+ v
+pwn.college{4pNEwXp7kVvOsHvXhHDdjrTaPyd.QX3ATO0wCO5kjNzEzW}
+                              ^
+     that is the second half /|\
+                              |
 
-I type cat /challenge/pwn and press TAB key to auto complete the directory and run it to get the flag.
+If you only see the second half above, you redirected in *truncate* mode (>)
+rather than *append* mode (>>), and so the write of the second half to stdout
+overwrote the initial write of the first half directly to the file. Try append
+mode!
+hacker@globbing~tab-completion:~$
+```
+I typed cat /challenge/pwn and pressed the TAB key which successfully auto completed the directory to /challenge/pwncollege.
+Then, after pressing the TAB key multiple times it listed out the possible file names I can specify as an argument to the
+command. I typed cat /challenge/pwncollege the-flag to get the flag.
 ### What I learned
+A safer alternative when we are trying to specify a specific target is tab completion. If we hit tab in the shell, it'll try to figure out what we are going to type and automatically complete it. Auto-completion is super useful, and this challenge explores its use in specifying files.
 Usage of the TAB key to autocomplete the name of the file.
 ### References
 Instructions in pwn.college.
@@ -145,11 +188,18 @@ Instructions in pwn.college.
 This challenge asks us to type /challenge/files/p and hit tab two times to display all the options of the name of the auto completed file.
 ### My Solve
 Flag:pwn.college{olnZB8kMEO9uKk1-fJeCHcL1BvC.0lN0EzNxwCO5kjNzEzW}
-
-I hit the TAB two times to get a variety of options of the file name. I use the file name pwncollege-flag to most suitably fit the autocompleted name
-and finally run  cat /challenge/files/pwncollege-flag to get the flag.
+```
+hacker@globbing~multiple-options-for-tab-completion:~$ cd /challenge/files
+hacker@globbing~multiple-options-for-tab-completion:/challenge/files$ cat pwn
+pwn                    pwn-the-planet         pwncollege-flag        pwncollege-flyswatter
+pwn-college            pwncollege-family      pwncollege-flamingo    pwncollege-hacking
+hacker@globbing~multiple-options-for-tab-completion:/challenge/files$ cat pwncollege-flag
+pwn.college{olnZB8kMEO9uKk1-fJeCHcL1BvC.0lN0EzNxwCO5kjNzEzW}
+hacker@globbing~multiple-options-for-tab-completion:/challenge/files$
+```
+After switching to the /challenge/files directory using cd command,I hit the TAB two times to get a variety of options of the file name. I used the file name pwncollege-flag to most suitably fit the autocompleted name and and finally ran cat pwncollege-flag to get the flag.
 ### What I learned
-Significance of pressing the TAB multiple times.
+By default bash will auto-expand until the first point when there are multiple options (in this case, fl). When you hit tab a second time, it'll print out those options. Other shells and configurations, instead, will cycle through the options.
 ### References
 Instructions in pwn.college.
 
@@ -158,8 +208,17 @@ Instructions in pwn.college.
 This challenge asks to invoke a command starting with pwncollege and hit the TAB to autocomplete the command.
 ### My Solve
 Flag:pwn.college{Ac6vOCAEGLXKE_4SWbrYtBRJ7aD.0VN0EzNxwCO5kjNzEzW}
-
-I typed pwncollege in terminal and hit TAB which autocompleted the command to pwncollege-5589. I simply typed it and pressed enter to get the flag.
+```
+hacker@globbing~tab-completion-on-commands:~$ pwncollege-380
+.bash_history       COLLEGE             college             intercepted_output  pwn
+.config/            PWN                 errors.log          myflag              the-flag
+.lesshst            a                   instructions        not-the-flag
+hacker@globbing~tab-completion-on-commands:~$ pwncollege-380
+Correct! Here is your flag:
+pwn.college{Ac6vOCAEGLXKE_4SWbrYtBRJ7aD.0VN0EzNxwCO5kjNzEzW}
+hacker@globbing~tab-completion-on-commands:~$
+```
+I typed pwncollege in terminal and hit TAB which autocompleted the command to pwncollege-380. I simply typed it and pressed enter to get the flag.
 ### What I learned
 TAB can also be used to autocomplete commands.
 ### References
