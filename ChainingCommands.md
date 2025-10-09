@@ -225,6 +225,117 @@ Instructions in pwn.college website
 
 
 ### Task 10
+For this challenge, we need to write a script at /home/hacker/solve.sh such that:
+Takes one argument
+If the argument is "pwn", output "college"
+For any other input, output "nope"
+### My Solve
+Flag:pwn.college{QDe355R4L_UlEuUlU5j1xS88Atf.01NzMDOxwCO5kjNzEzW}
+```
+hacker@chaining~scripting-with-default-cases:~$ echo '#!/bin/bash' > solve.sh
+hacker@chaining~scripting-with-default-cases:~$  echo 'if [ "$1" = "pwn" ]; then' >> solve.sh
+hacker@chaining~scripting-with-default-cases:~$ echo '  echo "college"' >> solve.sh
+hacker@chaining~scripting-with-default-cases:~$ echo 'else' >> solve.sh
+hacker@chaining~scripting-with-default-cases:~$ echo '  echo "nope"' >> solve.sh
+hacker@chaining~scripting-with-default-cases:~$ echo 'fi' >> solve.sh
+hacker@chaining~scripting-with-default-cases:~$ chmod +x solve.sh
+hacker@chaining~scripting-with-default-cases:~$ /challenge/run
+Correct! Your script properly handles the if/else conditions.
+Here's your flag:
+pwn.college{QDe355R4L_UlEuUlU5j1xS88Atf.01NzMDOxwCO5kjNzEzW}
+hacker@chaining~scripting-with-default-cases:~$
+```
+This challenge is similar to the previous one, except that the else statement is used to print the output as nope if 
+the first argument is not "pwn". If the first output is "pwn", then it outputs college which is handled by the command
+echo 'if [ "$1" = "pwn" ]; then' >> solve.sh and echo '  echo "college"' >> solve.sh. The else block of the shell script
+prints nope in all other cases, i.e  echo 'else' >> solve.sh and echo '  echo "nope"' >> solve.sh. Then, I terminate the
+if block using the fi and give executable permission to solve.sh. Finally, I ran /challenge/run to get the flag.
+### What I learned
+The else clause executes when the if condition is false.
+The else doesn't have a condition --- it catches everything that  we didn't match previously. It also doesn't have a then statement. Finally, the fi goes after the else block to denote the end of the whole complex statement
+### References
+Instructions in pwn.college website
+
+
+### Task 11
+For this challenge, we need to write a script at /home/hacker/solve.sh that:
+Takes one argument
+If the argument is "hack", output "the planet"
+If the argument is "pwn", output "college"
+If the argument is "learn", output "linux"
+For any other input, output "unknown"
+### My Solve
+Flag:pwn.college{QSgTR1sybwM9zApE4lWjqhbFgBR.0FOzMDOxwCO5kjNzEzW}
+```
+hacker@chaining~scripting-with-multiple-conditions:~$ echo '#!/bin/bash' > solve.sh
+hacker@chaining~scripting-with-multiple-conditions:~$ echo 'if [ "$1" = "hack" ]' >> solve.sh
+hacker@chaining~scripting-with-multiple-conditions:~$ echo 'then' >> solve.sh
+hacker@chaining~scripting-with-multiple-conditions:~$ echo '  echo "the planet"' >> solve.sh
+hacker@chaining~scripting-with-multiple-conditions:~$ echo 'elif [ "$1" = "pwn" ]' >> solve.sh
+hacker@chaining~scripting-with-multiple-conditions:~$ echo 'then' >> solve.sh
+hacker@chaining~scripting-with-multiple-conditions:~$ echo '  echo "college"' >> solve.sh
+hacker@chaining~scripting-with-multiple-conditions:~$ echo 'elif [ "$1" = "learn" ]' >> solve.sh
+hacker@chaining~scripting-with-multiple-conditions:~$ echo 'then' >> solve.sh
+hacker@chaining~scripting-with-multiple-conditions:~$ echo '  echo "linux"' >> solve.sh
+hacker@chaining~scripting-with-multiple-conditions:~$ echo 'else' >> solve.sh
+hacker@chaining~scripting-with-multiple-conditions:~$ echo '  echo "unknown"' >> solve.sh
+hacker@chaining~scripting-with-multiple-conditions:~$ echo 'fi' >> solve.sh
+hacker@chaining~scripting-with-multiple-conditions:~$ chmod +x solve.sh
+hacker@chaining~scripting-with-multiple-conditions:~$ /challenge/run
+Correct! Your script properly handles all the conditions with elif.
+Here's your flag:
+pwn.college{QSgTR1sybwM9zApE4lWjqhbFgBR.0FOzMDOxwCO5kjNzEzW}
+hacker@chaining~scripting-with-multiple-conditions:~$
+```
+This challenge is similar to the previous two challenges, the difference is that the else if block has been used in
+this challenge which executes if the 'if' statement fails to satisfy but an other specified condition is satisfied
+in the argument of else if command. In the similar fashion, I ran 
+
+echo 'elif [ "$1" = "pwn" ]' >> solve.sh
+hacker@chaining~scripting-with-multiple-conditions:~$ echo 'then' >> solve.sh
+hacker@chaining~scripting-with-multiple-conditions:~$ echo '  echo "college"' >> solve.sh
+
+To print pwn college if the first argument is "pwn". This only executes if the first argument fails to be "hack" or
+when the 'if' argument fails. If this elif statement fails, then the condition of the other elif command is checked.
+If all the conditions of the elif statements fail, then the else command is executed. The rest shenigans of the challenge,
+are all the same to the previous two challenges.
+### What I learned
+We can use the elif command to check multiple conditions.
+### References
+Instructions in pwn.college website
+
+
+### Task 12
+This challenge requires us to put in a secret password , but that password is hardcoded into the script iself! We need to read the script (using, say, cat), figure out the password, and get the flag!
+### My Solve
+Flag:pwn.college{gD54435XphuShPOrGaTE3tEMumI.0lMwgDOxwCO5kjNzEzW}
+```
+hacker@chaining~reading-shell-scripts:~$ cat /challenge/run
+#!/opt/pwn.college/bash
+
+read GUESS
+if [ "$GUESS" == "hack the PLANET" ]
+then
+        echo "CORRECT! Your flag:"
+        cat /flag
+else
+        echo "Read the /challenge/run file to figure out the correct password!"
+fi
+hacker@chaining~reading-shell-scripts:~$ /challenge/run
+hacker@chaining~reading-shell-scripts:~$ echo hack the PLANET | /challenge/run
+CORRECT! Your flag:
+pwn.college{gD54435XphuShPOrGaTE3tEMumI.0lMwgDOxwCO5kjNzEzW}
+hacker@chaining~reading-shell-scripts:~$
+```
+Initially in this challenge, I ran cat /challenge/run to figure out the passcode needed to get the flag which is written and
+hardcoded in the challenge itself(mentioned in the challenge). After displaying the script, it is clear that the passcode 
+is hack the PLANET. Finally, I piped the output of echo hack the PLANET to /challenge/run to get the flag.
+### What I learned
+Problem Solving
+### References
+Instructions in pwn.college website
+
+
 
 
 
