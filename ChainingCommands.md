@@ -10,7 +10,7 @@ pwn.college{QiqJSLh5phVN1xlAZDzt--4tMUX.QX1UDO0wCO5kjNzEzW}
 hacker@chaining~chaining-with-semicolons:~$
 ```
 I simply typed /challenge/pwn; /challenge/college to chain and ran two commands simultaneously.
-### What I learned
+### What I learned 
 The easiest way to chain commands is ;. In most contexts, ; separates commands in a similar way to how Enter separates lines.
 Basically, when you hit Enter, your shell executes your typed command and, after that command terminates, gives you the prompt to input another command. 
 The semicolon is analogous, just without the prompt and with you entering both commands before anything is executed.
