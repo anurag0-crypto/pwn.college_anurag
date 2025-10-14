@@ -152,7 +152,7 @@ In virtual terminal...
 ```
 hacker@terminal-multiplexing~detaching-and-attaching-tmux:~$ 11;rgb:0c0c/0c0c/0c0c echo Congratulations, here is your flag: pwn.college{oMprBIT0HenrXfTDMChHuDUfRrX.0VO4IDOxwCO5kjNzEzW}
 ```
-I simply did the same as task 2, but for attaching the terminal I ran Ctrl-B + d and for reattaching I ran tmux attach
+I simply did the same as task 2, but for deattaching the terminal I ran Ctrl-B + d and for reattaching I ran tmux attach
 ### What I learned
 tmux (terminal multiplexer) is screen's younger, more modern cousin. It does all the same things but with 
 some different key bindings.
